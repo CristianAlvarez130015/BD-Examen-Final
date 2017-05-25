@@ -1,0 +1,34 @@
+CREATE TABLE sums(
+  id int PRIMARY KEY,
+  base_value  varchar2(5) NOT null,
+  result varchar2(4000) NOT NULL
+);
+
+
+create or replace function findSum(n in number)
+
+return varchar is VMultiplos number :=0;
+
+begin 
+
+for a in 0..n loop
+if mod(a,3)= 0 or mod(a,5)=0
+then 
+VMultiplos := VMultiplos+a;
+end if;
+end loop;
+return VMultiplos;
+exception 
+when others then
+return "c"
+substr(sqlcode, 2, 4);
+end;
+
+create or replace trigger disparador
+before insert on valor for each row
+declare
+VMultiplos varchar(4000);
+begin 
+VMultiplos := FindSum
+
+end;
